@@ -1,0 +1,34 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Virtual environment
+venv/
+.env/
+
+# Dependency files
+*.log
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Docker-related
+*.tar
+*.img
+*.container
+.dockerignore
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+
+# Ignore Python package build artifacts
+build/
+dist/
+*.egg-info/
+
+# Ignore IDE and editor files
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store

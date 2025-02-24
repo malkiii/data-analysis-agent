@@ -1,0 +1,6 @@
+gradio==5.17.1
+langchain-community==0.3.18
+langchain-groq==0.2.4
+openpyxl==3.1.5
+pandasai==2.4.2
+python-dotenv==1.0.1
