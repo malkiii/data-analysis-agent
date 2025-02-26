@@ -1,6 +1,7 @@
 import pandas as pd
 from pandasai import SmartDataframe
 from langchain_groq.chat_models import ChatGroq
+import matplotlib.pyplot as plt
 from dotenv import load_dotenv
 from glob import glob
 import re
@@ -43,6 +44,10 @@ def load_dataframe(folder_path: str):
 
 
 df = load_dataframe("data")
+
+# Increase the DPI for better quality images
+plt.figure(dpi=380)
+
 sdf = SmartDataframe(df, config={"llm": llm})
 
 
