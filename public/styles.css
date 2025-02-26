@@ -1,0 +1,32 @@
+:root {
+  --scrollbar-color: 240deg 4.76% 95.88%;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --scrollbar-color: 240deg 3.7% 15.88%;
+  }
+}
+
+main {
+  max-width: 100% !important;
+}
+
+.block,
+.message {
+  scrollbar-width: thin !important;
+  scrollbar-color: hsl(var(--scrollbar-color) / 0.3) transparent;
+}
+
+.message {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  white-space: nowrap;
+}
+
+td.textbox {
+  text-wrap: balance;
+}
