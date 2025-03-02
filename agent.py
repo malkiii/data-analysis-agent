@@ -1,5 +1,5 @@
 import pandas as pd
-from pandasai import SmartDataframe
+from pandasai import Agent
 from langchain_groq.chat_models import ChatGroq
 import matplotlib.pyplot as plt
 from dotenv import load_dotenv
@@ -13,7 +13,7 @@ ROOT_DIR = os.path.dirname(__file__)
 llm = ChatGroq(model_name="llama3-70b-8192", api_key=os.environ["GROQ_API_KEY"])
 
 
-def load_dataframe(folder_path: str):
+def load_dataframes(folder_path: str):
     all_dfs = []
 
     folder_path = os.path.join(ROOT_DIR, folder_path)
@@ -37,18 +37,27 @@ def load_dataframe(folder_path: str):
 
         all_dfs.append(df)
 
-    if all_dfs:
-        return pd.concat(all_dfs, ignore_index=True)
-    else:
-        return pd.DataFrame()
+    return all_dfs
 
-
-df = load_dataframe("data")
 
 # Increase the DPI for better quality images
 plt.figure(dpi=380)
 
-sdf = SmartDataframe(df, config={"llm": llm})
+system_prompt = """
+You are a highly capable **Data Analysis Agent** specializing in data processing using Pandas, statistical analysis, and visualization. Your primary goal is to assist users in deriving insights from data while following best security practices: 
+
+- Never request or process sensitive PII (Personally Identifiable Information).
+- Do not execute or provide code that could be **malicious, unethical, or privacy-violating** (e.g., web scraping personal data, breaking encryption, or accessing unauthorized databases). 
+- Be transparent when making assumptions about missing or unclear data.  
+- Use a conversational and **engaging tone** while maintaining professionalism.
+- If a mistake is made, acknowledge it and offer a corrected response.
+"""
+
+agent = Agent(
+    description=system_prompt,
+    dfs=load_dataframes("data"),
+    config={"llm": llm, "verbose": True},
+)
 
 
 def chat(prompt: str):
@@ -57,4 +66,4 @@ def chat(prompt: str):
     """
     query = re.sub(r"\s+", " ", prompt).strip()
 
-    return sdf.chat(query)
+    return agent.chat(query)
