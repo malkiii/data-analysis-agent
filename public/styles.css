@@ -27,6 +27,10 @@ table {
   white-space: nowrap;
 }
 
+img {
+  margin: 0 !important;
+}
+
 td.textbox {
   text-wrap: balance;
 }
