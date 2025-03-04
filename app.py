@@ -5,7 +5,7 @@ from base64 import b64encode
 import os
 
 
-def chat_with_agent(query: str, history):
+def generate_response(query: str, history):
     """
     Function to handle chat interactions with the SmartDataframe.
     """
@@ -26,7 +26,7 @@ def chat_with_agent(query: str, history):
             return str(result)
 
     except Exception as e:
-        return f"CHAT_ERROR: {e}"
+        return f"❌ CHAT_ERROR: {e}"
 
 
 def image_to_base64(image_path):
@@ -42,7 +42,7 @@ def image_to_base64(image_path):
 
 app = gr.ChatInterface(
     type="messages",
-    fn=chat_with_agent,
+    fn=generate_response,
     chatbot=gr.Chatbot(height=500, type="messages"),
     css_paths=["public/styles.css"],
     stop_btn=True,

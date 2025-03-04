@@ -10,14 +10,12 @@ import os
 load_dotenv()
 ROOT_DIR = os.path.dirname(__file__)
 
-llm = ChatGroq(model_name="llama3-70b-8192", api_key=os.environ["GROQ_API_KEY"])
-
 
 def load_dataframes(folder_path: str):
     all_dfs = []
 
     folder_path = os.path.join(ROOT_DIR, folder_path)
-    file_patterns = ["*.xls", "*.xlsx", "*.csv", "*.json", "*.xml", "*.html"]
+    file_patterns = ["*.xls", "*.xlsx", "*.csv", "*.json", "*.xml"]
     files = []
 
     for pattern in file_patterns:
@@ -39,6 +37,8 @@ def load_dataframes(folder_path: str):
 
     return all_dfs
 
+
+llm = ChatGroq(model_name="llama3-70b-8192", api_key=os.environ["GROQ_API_KEY"])
 
 system_prompt = """
 You are a highly capable **Data Analysis Agent** specializing in data processing using Pandas, statistical analysis, and visualization. Your primary goal is to assist users in deriving insights from data while following best security practices: 
