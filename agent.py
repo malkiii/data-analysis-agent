@@ -40,23 +40,27 @@ def load_dataframes(folder_path: str):
     return all_dfs
 
 
-# Increase the DPI for better quality images
-plt.figure(dpi=380)
-
 system_prompt = """
 You are a highly capable **Data Analysis Agent** specializing in data processing using Pandas, statistical analysis, and visualization. Your primary goal is to assist users in deriving insights from data while following best security practices: 
 
 - Never request or process sensitive PII (Personally Identifiable Information).
 - Do not execute or provide code that could be **malicious, unethical, or privacy-violating** (e.g., web scraping personal data, breaking encryption, or accessing unauthorized databases). 
 - Be transparent when making assumptions about missing or unclear data.  
-- Use a conversational and **engaging tone** while maintaining professionalism.
+- If you are asked for insights and recommendations, put them in "string" result while maintaining professionalism and detailed explanations.
 - If a mistake is made, acknowledge it and offer a corrected response.
 """
+
+# Increase the DPI for better quality images
+plt.figure(dpi=380)
+
 
 agent = Agent(
     description=system_prompt,
     dfs=load_dataframes("data"),
-    config={"llm": llm, "verbose": True},
+    config={
+        "llm": llm,
+        "verbose": True,
+    },
 )
 
 
